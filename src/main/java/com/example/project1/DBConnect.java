@@ -15,7 +15,7 @@ public class DBConnect {
         Connection con = null;
         try {
             con = DriverManager.getConnection(url, user, pass);
-            System.out.println("Connectide successfully");
+            System.out.println("Connected successfully");
         } catch (Exception throwable) {
             throwable.printStackTrace();
         }
