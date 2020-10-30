@@ -7,37 +7,35 @@ import java.text.MessageFormat;
 
 public class TradeRecord {
     @Id
-    private Timestamp tradeTimestamp;
-    private String stockName;
-    private Float price;
-    private String action;
-    private String party;
-    private Boolean completed;
+    private final Timestamp ordertimestamp;
+    private final String stockname;
+    private final Float price;
+    private final String action;
+    private final String party;
 
-    public TradeRecord(Timestamp tradeTimestamp, String stockName, Float price,
-                       String action, String party, Boolean completed) {
-        this.stockName = stockName;
+    public TradeRecord(Timestamp ordertimestamp, String stockname, Float price,
+                       String action, String party) {
+        this.stockname = stockname;
         this.price = price;
         this.party = party;
-        this.tradeTimestamp = tradeTimestamp;
+        this.ordertimestamp = ordertimestamp;
         this.action = action;
-        this.completed = completed;
     }
 
     public void printRecord(){
-        System.out.println(MessageFormat.format("Stock name: {0}", this.stockName));
+        System.out.println(MessageFormat.format("Stock name: {0}", this.stockname));
         System.out.println(MessageFormat.format("Price: {0}", this.price));
         System.out.println(MessageFormat.format("Party: {0}", this.party));
         System.out.println(MessageFormat.format("Action: {0}", this.action));
-        System.out.println(MessageFormat.format("Timestamp: {0}", this.tradeTimestamp.toString() ));
+        System.out.println(MessageFormat.format("Timestamp: {0}", this.ordertimestamp.toString() ));
     }
 
-    public Timestamp getTradeTimestamp() {
-        return tradeTimestamp;
+    public Timestamp getOrdertimestamp() {
+        return ordertimestamp;
     }
 
     public String getStockName() {
-        return stockName;
+        return stockname;
     }
 
     public Float getPrice() {
@@ -46,5 +44,9 @@ public class TradeRecord {
 
     public String getParty() {
         return party;
+    }
+
+    public String getAction() {
+        return action;
     }
 }

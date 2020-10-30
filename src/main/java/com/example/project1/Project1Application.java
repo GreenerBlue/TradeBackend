@@ -18,11 +18,11 @@ import java.util.Objects;
 public class Project1Application {
 
 	public static void main(String[] args) {
+		SpringApplication.run(Project1Application.class, args);
 		try {
 			matchTrades();
 		}
 		catch (SQLException e) {e.printStackTrace();}
-		//SpringApplication.run(Project1Application.class, args);
 	}
 
 	public static void matchTrades() throws SQLException {
@@ -44,10 +44,10 @@ public class Project1Application {
 
 					s.executeUpdate(insertQuery);
 					updateQuery = MessageFormat.format("UPDATE ordertb SET processed=true where ordertimestamp=''{0}''",
-							record1.getTradeTimestamp().toString());
+							record1.getOrdertimestamp().toString());
 					s.executeUpdate(updateQuery);
 					updateQuery = MessageFormat.format("UPDATE ordertb SET processed=true where ordertimestamp=''{0}''",
-							record2.getTradeTimestamp().toString());
+							record2.getOrdertimestamp().toString());
 					s.executeUpdate(updateQuery);
 					it2.remove();
 					it.remove();

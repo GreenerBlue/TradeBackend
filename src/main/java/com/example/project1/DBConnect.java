@@ -44,8 +44,7 @@ public class DBConnect {
             while(records.next()){
                 TradeRecord current = new TradeRecord(records.getTimestamp(1),
                         records.getString(2), records.getFloat(3),
-                        records.getString(4),  records.getString(5),
-                        records.getBoolean(6));
+                        records.getString(4),  records.getString(5) );
                 recordList.add(current);
             }
             records.close();
@@ -54,6 +53,38 @@ public class DBConnect {
         }
         return recordList;
     }
+
+    public static void createDatabases(){
+        DBConnect db = new DBConnect();
+        Connection c = db.connectToDb();
+        String createOrderTableQuery = """
+                CREATE TABLE IF NOT EXISTS ordertb (
+                    ordertimestamp timestamp(6) NOT NULL,
+                    stockname character varying(10) NOT NULL,
+                    price real,
+                    orderaction character varying(10) NOT NULL,
+                    party character varying(20),
+                    processed boolean,
+                    PRIMARY KEY (ordertimestamp)
+                );""";
+        String createMatchTableQuery = """
+                CREATE TABLE IF NOT EXISTS ordertb (
+                    ordertimestamp timestamp(6) NOT NULL,
+                    stockname character varying(10) NOT NULL,
+                    price real,
+                    seller character varying(20),
+                    buyer character varying(20),
+                    PRIMARY KEY (ordertimestamp)
+                );
+                """;
+        try(Statement s = c.createStatement()){
+            s.execute(createOrderTableQuery);
+            s.execute(createMatchTableQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void fillDbWithValues(){
         DBConnect db = new DBConnect();
         Connection c = db.connectToDb();
@@ -76,10 +107,10 @@ public class DBConnect {
         }
     }
     public static void main(String[] args)  {
-        DBConnect.fillDbWithValues();
+        //DBConnect.createDatabases();
+        //DBConnect.fillDbWithValues();
 
         DBConnect db = new DBConnect();
-        /*
         ArrayList<TradeRecord> ll = db.getRecordsFromDb();
         for (TradeRecord rec : ll){
             rec.printRecord();
@@ -89,8 +120,5 @@ public class DBConnect {
         } catch (SQLException throwers) {
             throwers.printStackTrace();
         }
-        */
-
     }
 }
-/* ordertimestamp, stname, price, tradeaction, party, processed */
